@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ReviewBuddy</title>
+    <style>
+      #reviewBuddyContainer {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        width: 300px;
+        background-color: #333;
+        color: white;
+        border: 1px solid #444;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        z-index: 1000;
+        cursor: pointer;
+      }
+      #reviewBuddyHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #reviewBuddyContent {
+        display: none;
+      }
+      #reviewBuddyMinimizeButton {
+        cursor: pointer;
+        background-color: #555;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: none;
+      }
+      #reviewModelScore {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="reviewBuddyContainer">
+      <div id="reviewBuddyHeader">
+        <span>ReviewBuddy</span>
+        <button id="reviewBuddyMinimizeButton">-</button>
+      </div>
+      <div id="reviewBuddyContent">
+        <div id="placeName">Loading...</div>
+        <div id="placeAddress"></div>
+        <div id="reviewModelScore"></div>
+      </div>
+    </div>
+  </body>
+</html>
