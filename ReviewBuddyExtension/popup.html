@@ -100,12 +100,25 @@
         visibility: visible;
         opacity: 1;
       }
+      .whitify {
+        filter: invert(100%) sepia(1%) saturate(0%) hue-rotate(314deg)
+          brightness(109%) contrast(101%);
+      }
     </style>
   </head>
   <body>
     <div id="reviewBuddyContainer">
       <div id="reviewBuddyHeader">
-        <h3>ReviewBuddy</h3>
+        <h3>
+          ReviewBuddy
+          <img
+            height="30px"
+            width="30px"
+            class="whitify"
+            src="https://www.svgrepo.com/show/528680/stars.svg"
+            alt=".ai"
+          />
+        </h3>
         <button id="reviewBuddyMinimizeButton">-</button>
       </div>
       <div id="reviewBuddyContent">
