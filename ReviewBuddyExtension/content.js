@@ -54,7 +54,28 @@ function fetchReviewModelScore(placeName, placeCity) {
 
 function displayReviewModelScore(score) {
   const reviewModelScoreContainer = document.getElementById("reviewModelScore");
-  reviewModelScoreContainer.innerHTML = `<div><strong>Text Rating:</strong> ${score}</div>`;
+  const starWidth = 23; // Width of one star
+  const filledWidth = Math.floor(score) * starWidth + (score % 1) * starWidth;
+
+  const starHtml = `
+    <span class="stars" aria-label="Rated ${score} out of 5," role="img">
+      <div aria-hidden="true">
+        <span style="width:calc(${filledWidth}px)"></span>
+      </div>
+    </span>
+    <div>(Textual Rating)<i class="info-icon" data-tooltip="The rating is inferred using artificial intelligence reading over all of these reviews and giving a review based on the sentiment of the text, not by the stars they gave.">i</i></div>
+  `;
+
+  reviewModelScoreContainer.innerHTML = `<div>${score} ${starHtml}</div>`;
+
+  // Initialize tooltips
+  document.querySelectorAll(".info-icon").forEach((icon) => {
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.innerText =
+      "The rating is inferred using artificial intelligence reading over all of these reviews and giving a review based on the sentiment of the text, not by the stars they gave.";
+    icon.appendChild(tooltip);
+  });
 }
 
 function injectHTML() {
