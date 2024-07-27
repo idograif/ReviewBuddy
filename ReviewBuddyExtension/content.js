@@ -40,6 +40,8 @@ function getPlaceAddress() {
 function fetchReviewModelScore(placeName, placeCity) {
   const apiUrl = chrome.runtime.getURL("review_model_score.json"); // THIS IS A STUB
 
+  showSkeletonLoader();
+
   fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
@@ -50,6 +52,20 @@ function fetchReviewModelScore(placeName, placeCity) {
     .catch((err) => {
       log("Failed to fetch review model score - Log ID: 018", err);
     });
+}
+
+function showSkeletonLoader() {
+  const reviewModelScoreContainer = document.getElementById("reviewModelScore");
+  reviewModelScoreContainer.innerHTML = `
+    <div class="skeleton-container">
+    <div class="skeleton-rating">
+      <div class="skeleton-glimmer"></div>
+    </div>
+      <div class="skeleton-stars">
+        <div class="skeleton-glimmer"></div>
+      </div>
+    </div>
+  `;
 }
 
 function displayReviewModelScore(score) {
@@ -63,19 +79,9 @@ function displayReviewModelScore(score) {
         <span style="width:calc(${filledWidth}px)"></span>
       </div>
     </span>
-    <div>(Textual Rating)<i class="info-icon" data-tooltip="The rating is inferred using artificial intelligence reading over all of these reviews and giving a review based on the sentiment of the text, not by the stars they gave.">i</i></div>
   `;
 
   reviewModelScoreContainer.innerHTML = `<div>${score} ${starHtml}</div>`;
-
-  // Initialize tooltips
-  document.querySelectorAll(".info-icon").forEach((icon) => {
-    const tooltip = document.createElement("div");
-    tooltip.className = "tooltip";
-    tooltip.innerText =
-      "The rating is inferred using artificial intelligence reading over all of these reviews and giving a review based on the sentiment of the text, not by the stars they gave.";
-    icon.appendChild(tooltip);
-  });
 }
 
 function injectHTML() {
@@ -124,6 +130,15 @@ function initializePopup() {
         log("Maximized - Log ID: 016");
       }
     });
+
+  // Initialize tooltips
+  document.querySelectorAll(".info-icon").forEach((icon) => {
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.innerText =
+      "The rating is inferred using artificial intelligence reading over all of these reviews and giving a review based on the sentiment of the text, not by the stars they gave.";
+    icon.appendChild(tooltip);
+  });
 }
 
 function updatePlaceInfo() {
