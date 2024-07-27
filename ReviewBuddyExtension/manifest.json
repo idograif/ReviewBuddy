@@ -4,6 +4,9 @@
   "version": "1.0",
   "description": "Displays AI text inferred ratings for the currently viewed place on Google Places.",
   "permissions": ["activeTab", "storage"],
+  "icons": {
+    "128": "icons/128.png"
+  },
   "background": {
     "service_worker": "background.js"
   },
