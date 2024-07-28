@@ -37,21 +37,27 @@ function getPlaceAddress() {
   }
 }
 
-function fetchReviewModelScore(placeName, placeCity) {
-  const apiUrl = chrome.runtime.getURL("review_model_score.json"); // THIS IS A STUB
+async function fetchReviewModelScore(placeName, placeCity) {
+  const apiUrl =
+    "https://score-google-place-api-bnwzz3dieq-zf.a.run.app/predict_google_place?place_name=" +
+    encodeURIComponent(`${placeName} ${placeCity}`) +
+    "&number_of_reviews=10";
 
-  showSkeletonLoader();
-
-  fetch(apiUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      log(data);
-      displayReviewModelScore(data.review_model_score);
-      log("Review model score fetched and displayed - Log ID: 017");
-    })
-    .catch((err) => {
-      log("Failed to fetch review model score - Log ID: 018", err);
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    log(`Received score: ${data.score} - Log ID: 017`);
+    displayReviewModelScore(data.score);
+  } catch (error) {
+    log(`Failed to fetch review model score - Log ID: 018`, error);
+  }
 }
 
 function showSkeletonLoader() {
