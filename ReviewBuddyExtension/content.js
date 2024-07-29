@@ -43,10 +43,10 @@ async function fetchReviewModelScore(placeName, placeCity) {
     encodeURIComponent(`${placeName} ${placeCity}`) +
     "&number_of_reviews=10";
 
+  showSkeletonLoader();
+
   try {
-    const response = await fetch(apiUrl, {
-      method: "POST",
-    });
+    const response = await fetch(apiUrl);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
